@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
-# Installs and configures nginx web server
+# Installs and configures Nginx web server
 
 apt-get update -y
 apt-get install -y nginx
 
-echo "Holberton School for the win!" > /var/www/html/index.html
+# Overwrite default index files with Holberton School
+echo "Holberton School" > /var/www/html/index.html
+echo "Holberton School" > /var/www/html/index.nginx-debian.html
 
+# Start/restart Nginx service
 service nginx restart
