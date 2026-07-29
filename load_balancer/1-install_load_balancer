@@ -5,8 +5,24 @@
 sudo apt-get update -y
 sudo apt-get install -y haproxy
 
-# Append configuration to /etc/haproxy/haproxy.cfg
-sudo bash -c 'cat >> /etc/haproxy/haproxy.cfg' << 'EOF'
+# Create clean HAProxy configuration
+sudo bash -c 'cat > /etc/haproxy/haproxy.cfg' << 'EOF'
+global
+    log /dev/log local0
+    log /dev/log local1 notice
+    chroot /var/lib/haproxy
+    user haproxy
+    group haproxy
+    daemon
+
+defaults
+    log     global
+    mode    http
+    option  httplog
+    option  dontlognull
+    timeout connect 5000
+    timeout client  50000
+    timeout server  50000
 
 frontend http_front
     bind *:80
